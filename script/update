@@ -98,7 +98,7 @@ def download_source_tarball(version):
 
 
 def install_sysroot():
-  for arch in ('arm', 'amd64', 'i386'):
+  for arch in ('arm', 'amd64', 'i386','armel'):
     install = os.path.join(SRC_DIR, 'build', 'linux', 'sysroot_scripts',
                            'install-sysroot.py')
     subprocess.check_call([sys.executable, install, '--arch', arch])
@@ -130,7 +130,7 @@ def gyp_env(target_arch, component, gyp_defines):
     env['GYP_MSVS_VERSION'] = '2015'
     # Use Windows 10 SDK.
     env['WINDOWSSDKDIR'] = 'C:\\Program Files (x86)\\Windows Kits\\10'
-  elif sys.platform == 'linux2' and target_arch in ('arm', 'ia32'):
+  elif sys.platform == 'linux2' and target_arch in ('arm', 'ia32', 'armel'):
     # ARM build requires cross compilation.
     env['GYP_CROSSCOMPILE'] = '1'
 

@@ -33,8 +33,8 @@
         'linux_use_bundled_gold': 1,
         'conditions': [
           ['target_arch=="arm"', {
-            'arm_version': 7,
-            'arm_float_abi': 'hard',
+            'arm_version': 5,
+            'arm_float_abi': 'soft',
           }],
           ['target_arch=="ia32"', {
             # The |character_data_generator| target depends on |icuuc#host|, and
@@ -85,6 +85,12 @@
       'U_STATIC_IMPLEMENTATION',
     ],
     'conditions': [
+      ['OS=="linux" and target_arch=="armel"', {
+        # Work around ODR violations.
+        'ldflags!': [
+          '-Wl,--detect-odr-violations',
+        ],
+      }],
       ['OS=="linux" and target_arch=="arm"', {
         # Work around ODR violations.
         'ldflags!': [
